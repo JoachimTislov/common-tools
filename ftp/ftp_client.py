@@ -32,7 +32,7 @@ def upload_dir(f, local_directory, remote_directory):
             print(f"Uploading file: {local_file_path} to {remote_directory}")
             f.put(local_file_path, remote_directory)
         elif os.path.isdir(local_file_path):
-            new_remote_directory = f"{remote_directory}{file}/"
+            new_remote_directory = f"{remote_directory}/{file}"
             print(
                 f"Child directory remotely: {new_remote_directory}, and locally: {local_file_path}"
             )
@@ -66,8 +66,7 @@ def delete_remote_directory(f, remote_directory):
     try:
         print(f"Attempting to delete directory: {remote_directory}")
         files = f.list(remote_directory)
-        for file_info in files:
-            file_path = f"{remote_directory}/{file_info}"
+        for file_path in files:
             try:
                 f.delete(file_path)
                 print(f"Deleted file: {file_path}")

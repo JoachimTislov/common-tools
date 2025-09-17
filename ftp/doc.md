@@ -15,7 +15,10 @@ View the [Makefile](Makefile) for details about the cmd.
 ### CLI - command line interface
 
 ```bash
-CLI: python ftp.py <local_directory> <remote_dist> [--js-bundle]
+CLI: python ftp_client.py <local_directory> <remote_dist> [--js-bundle]
+    <local_directory>  dist
+    <remote_dist>      /remote/path/on/server
+    --js-bundle        Optional flag to delete existing assets folder for JS bundles before upload
 ```
 
 #### With environment Variables:
