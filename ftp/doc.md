@@ -47,7 +47,7 @@ run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/f
 
 - name: Deploy with FTP
 run: |
-python ftp_client.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
+venv/bin/python ftp_client.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
 env:
 HOST: ${{ secrets.DEPLOY_HOST }}
 USERNAME: ${{ secrets.DEPLOY_USERNAME }}
