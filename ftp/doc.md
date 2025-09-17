@@ -16,10 +16,11 @@ View the [Makefile](Makefile) for details about the cmd.
 
 ```bash
 CLI: python ftp_client.py <local_directory> <remote_dist> [--js-bundle]
-    <local_directory>  dist
-    <remote_dist>      /remote/path/on/server
-    --js-bundle        Optional flag to delete existing assets folder for JS bundles before upload
 ```
+Example:
+    <local_directory>  name_of_local_directory - can be relative or absolute path and should not include trailing slash, but I think it works either way
+    <remote_dist>      /remote/path/on/server/ - very important to include trailing slash, ftp won't treat is as a directory otherwise
+    --js-bundle        Optional flag to delete existing assets folder for JS bundles before upload
 
 #### With environment Variables:
 
