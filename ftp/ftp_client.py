@@ -32,7 +32,7 @@ def upload_dir(f, local_directory, remote_directory):
             print(f"Uploading file: {local_file_path} to {remote_directory}")
             f.put(local_file_path, remote_directory)
         elif os.path.isdir(local_file_path):
-            new_remote_directory = f"{remote_directory}/{file}"
+            new_remote_directory = f"{remote_directory}{file}/"
             print(
                 f"Child directory remotely: {new_remote_directory}, and locally: {local_file_path}"
             )
