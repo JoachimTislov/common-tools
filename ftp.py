@@ -29,9 +29,12 @@ Usage:
         source venv/bin/activate
         pip install ftpretty argparse
 
+       - name: Fetch deployment script
+       run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/ftp.py
+
        - name: Deploy with FTP
        run: |
-        python ftp.py <local_dist> <remote_dist> [--js-bundle]
+        python ftp.py [LOCAL_DIST_PATH] [REMOTE_DIST_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
        env:
         HOST: ${{ secrets.DEPLOY_HOST }}
         USERNAME: ${{ secrets.DEPLOY_USERNAME }}
