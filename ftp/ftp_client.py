@@ -15,7 +15,7 @@ def main():
     )
 
     if args.js_bundle:
-        delete_remote_directory(f, args.remote_directory + "/assets")
+        delete_remote_directory(f, args.remote_directory + "assets/")
 
     upload_dir(f, args.local_directory, args.remote_directory)
     f.close()
