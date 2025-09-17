@@ -4,7 +4,35 @@ import os
 
 """
 Usage:
-    python ftp.py <local_dist> <remote_dist> [--js-bundle]
+    CLI: python ftp.py <local_dist> <remote_dist> [--js-bundle]
+    with environment Variables:
+        HOST: FTP server hostname
+        USERNAME: FTP username
+        PASSWORD: FTP password
+
+    GitHub Workflow
+
+    Environment variables need to be set as secrets in the repository, organization, user or enterprise.
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        # Note 3.x is not a valid version, specify a specific version like 3.11
+        python-version: ${{ matrix.python-version OR '3.x' }}
+
+    - name: Setup Python environment and install ftpretty
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install ftpretty argparse
+
+    - name: Deploy with FTP
+      run: |
+        python ftp.py <local_dist> <remote_dist> [--js-bundle]
+      env:
+        HOST: ${{ secrets.DEPLOY_HOST }}
+        USERNAME: ${{ secrets.DEPLOY_USERNAME }}
+        PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
 """
 
 
