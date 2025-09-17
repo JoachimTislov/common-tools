@@ -32,24 +32,24 @@ Environment variables needs to be set as secrets in either the repository or the
 - DEPLOY_PASSWORD
 ```yaml
 - name: Set up Python
-uses: actions/setup-python@v5
-with:
-# Note that '3.x' is not a valid version, specify a specific version like 3.11
-python-version: ${{ matrix.python-version OR '3.x' }}
+- uses: actions/setup-python@v5
+  with:
+    # Note that '3.x' is not a valid version, specify a specific version like 3.11
+    python-version: ${{ matrix.python-version OR '3.x' }}
 
 - name: Setup Python environment and install ftpretty
-run: |
-python -m venv venv
-venv/bin/pip install ftpretty argparse
+  run: |
+    python -m venv venv
+    venv/bin/pip install ftpretty argparse
 
 - name: Fetch deployment script
-run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/ftp/ftp_client.py
+    run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/ftp/ftp_client.py
 
 - name: Deploy with FTP
-run: |
-venv/bin/python ftp_client.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
-env:
-HOST: ${{ secrets.DEPLOY_HOST }}
-USERNAME: ${{ secrets.DEPLOY_USERNAME }}
-PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+  run: |
+    venv/bin/python ftp_client.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
+  env:
+    HOST: ${{ secrets.DEPLOY_HOST }}
+    USERNAME: ${{ secrets.DEPLOY_USERNAME }}
+    PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
 ```
