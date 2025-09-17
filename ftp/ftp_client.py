@@ -2,45 +2,6 @@ import argparse
 from ftpretty import ftpretty
 import os
 
-"""
-Usage:
-    CLI: python ftp.py <local_dist> <remote_dist> [--js-bundle]
-        with environment Variables:
-            HOST: FTP server hostname
-            USERNAME: FTP username
-            PASSWORD: FTP password
-
-    GitHub Workflow
-
-       Environment variables need to be set as secrets in either the repository or organization
-       - DEPLOY_HOST
-       - DEPLOY_USERNAME
-       - DEPLOY_PASSWORD
-
-       - name: Set up Python
-       uses: actions/setup-python@v5
-       with:
-        # Note that '3.x' is not a valid version, specify a specific version like 3.11
-        python-version: ${{ matrix.python-version OR '3.x' }}
-
-       - name: Setup Python environment and install ftpretty
-       run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install ftpretty argparse
-
-       - name: Fetch deployment script
-       run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/ftp.py
-
-       - name: Deploy with FTP
-       run: |
-        python ftp.py [LOCAL_DIST_PATH] [REMOTE_DIST_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
-       env:
-        HOST: ${{ secrets.DEPLOY_HOST }}
-        USERNAME: ${{ secrets.DEPLOY_USERNAME }}
-        PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
-"""
-
 
 def main():
     args = parse_flags()
@@ -54,9 +15,9 @@ def main():
     )
 
     if args.js_bundle:
-        delete_remote_directory(f, args.remote_dist + "/assets")
+        delete_remote_directory(f, args.remote_directory + "/assets")
 
-    upload_dir(f, args.local_dist, args.remote_dist)
+    upload_dir(f, args.local_directory, args.remote_directory)
     f.close()
 
 
@@ -82,13 +43,13 @@ def upload_dir(f, local_directory, remote_directory):
 # Returns:
 #     argparse.Namespace: Parsed command-line arguments.
 # Flags:
-#     local_dist (str): Local distribution directory.
-#     remote_dist (str): Remote distribution directory.
+#     local_directory (str): Local distribution directory.
+#     remote_directory (str): Remote distribution directory.
 #     --js-bundle (bool): If set, deletes existing assets folder for JavaScript bundles.
 def parse_flags():
     parser = argparse.ArgumentParser(description="Upload files via FTP")
-    parser.add_argument("local_dist", help="Local distribution directory")
-    parser.add_argument("remote_dist", help="Remote distribution directory")
+    parser.add_argument("local_directory", help="Local distribution directory")
+    parser.add_argument("remote_directory", help="Remote distribution directory")
     parser.add_argument(
         "--js-bundle",
         action="store_true",
