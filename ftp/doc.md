@@ -40,15 +40,14 @@ python-version: ${{ matrix.python-version OR '3.x' }}
 - name: Setup Python environment and install ftpretty
 run: |
 python -m venv venv
-source venv/bin/activate
-pip install ftpretty argparse
+venv/bin/pip install ftpretty argparse
 
 - name: Fetch deployment script
 run: curl -O https://raw.githubusercontent.com/JoachimTislov/common-tools/main/ftp/ftp_client.py
 
 - name: Deploy with FTP
 run: |
-python ftp.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
+python ftp_client.py [LOCAL_DIRECTORY_PATH] [REMOTE_DIRECTORY_PATH] ([--js-bundle] - if you want to delete existing assets folder for JS bundles, see lines 81 to 97)
 env:
 HOST: ${{ secrets.DEPLOY_HOST }}
 USERNAME: ${{ secrets.DEPLOY_USERNAME }}
